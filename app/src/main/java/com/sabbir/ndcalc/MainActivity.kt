@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayout
 import android.text.Editable
 import android.text.InputFilter
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
@@ -109,7 +110,14 @@ class MainActivity : AppCompatActivity() {
         if (textview_expression.length() > 0 && isOperator(ch)) {
             textview_expression.append(" " + ch)
         } else {
-            if (textview_expression.text.isNotEmpty() && isOperator(textview_expression.text.last())) {
+            val text = textview_expression.text
+            if(ch=='.'){
+                val index = text.lastIndexOf('.')
+                if(index !=-1 && TextUtils.isDigitsOnly(text.substring(index+1))){
+                    return
+                }
+            }
+            if (text.isNotEmpty() && isOperator(text.last())) {
                 textview_expression.append(" " + ch)
             } else {
                 textview_expression.append("" + ch)
