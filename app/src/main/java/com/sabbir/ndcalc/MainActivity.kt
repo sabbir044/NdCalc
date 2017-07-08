@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     private fun result() {
         val result = result
         if (result == null) {
-            textview_result.text = "Invalid Expr"
+            textview_result.text = resources.getText(R.string.bad_expr)
             return
         }
         textview_result.text = result.toPlainString()
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
     private fun onSquareRoot() {
         val result = result
         if (result == null) {
-            textview_result.text = "Invalid Expr"
+            textview_result.text = resources.getText(R.string.bad_expr)
             return
         }
         try {
@@ -161,7 +161,8 @@ class MainActivity : AppCompatActivity() {
             val newResult = expression.eval()
             textview_result.text = newResult.toPlainString()
         } catch (ex: Exception) {
-            textview_result.text = "Invalid Expr"
+            textview_result.text = resources.getText(R.string.bad_expr)
+
         }
 
     }
@@ -169,10 +170,11 @@ class MainActivity : AppCompatActivity() {
     private val result: BigDecimal?
         get() {
             try {
-                var expressionStrTmp = textview_expression.text.toString()
-                expressionStrTmp = expressionStrTmp.replace("\u00D7".toRegex(), "*")
-                val expressionStr = expressionStrTmp.replace("\u00F7".toRegex(), "/")
-                val expression = Expression(expressionStr)
+                val expression = Expression(
+                        textview_expression.text.toString()
+                                .replace("\u00D7".toRegex(), "*")
+                                .replace("\u00F7".toRegex(), "/")
+                )
                 expression.setPrecision(15)
                 val result = expression.eval()
                 return result

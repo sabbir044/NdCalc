@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NdCalc</string>
+    <string name="bad_expr">Bad Expression</string>
 </resources>
