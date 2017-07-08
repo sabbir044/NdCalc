@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:orientation="vertical"
+    tools:context="com.sabbir.ndcalc.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <View
+            android:id="@+id/strut"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/textview_expression"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/strut"
+            android:layout_alignBottom="@+id/strut"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end|center"
+            android:text=""
+            android:textAlignment="gravity"
+            android:textColor="@android:color/black"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:id="@+id/textview_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/strut"
+            android:layout_below="@+id/strut"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end|center"
+            android:text=""
+            android:textAlignment="gravity"
+            android:textColor="@android:color/black"
+            android:textSize="50sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <android.support.v7.widget.GridLayout
+            android:id="@+id/grid_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="0dp"
+            app:columnCount="4"
+            app:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/button_clear"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="C"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_back_space"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="\u25C0"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_negate"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="\u00B1"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_sqrt"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="\u221A"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_7"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="7"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_8"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="8"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_9"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="9"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_div"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="\u00F7"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_4"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="4"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_5"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="5"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_6"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="6"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_mult"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="\u00D7"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_1"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_2"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="2"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_3"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="3"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_minus"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="-"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_equal"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="="
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_0"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_decimal_point"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="."
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+
+            <Button
+                android:id="@+id/button_plus"
+                android:background="@drawable/button"
+                android:onClick="onKeyTap"
+                android:text="+"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                />
+        </android.support.v7.widget.GridLayout>
+    </RelativeLayout>
+
+</LinearLayout>
