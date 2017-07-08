@@ -1,5 +1,6 @@
 package com.sabbir.ndcalc
 
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,9 +9,11 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import com.udojava.evalex.Expression
 import kotlinx.android.synthetic.main.activity_main.*
 import java.math.BigDecimal
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        textview_expression.filters = arrayOf(InputFilter.LengthFilter(15))
+        textview_expression.filters = arrayOf(InputFilter.LengthFilter(30))
     }
 
     fun onKeyTap(view: View) {
@@ -104,6 +107,28 @@ class MainActivity : AppCompatActivity() {
             R.id.button_sqrt -> onSquareRoot()
             R.id.button_negate -> onPositiveNegative()
         }
+        resizeText(textview_expression)
+
+    }
+
+    fun resizeText(textView: TextView) {
+        val mTestPaint = Paint()
+        mTestPaint.set(textview_expression.paint)
+        val targetWidth = textView.width - textview_expression.paddingLeft - textview_expression.paddingRight
+        var hi:Float = 100F
+        var lo:Float = 45F
+        val threeshold:Float = 0.5F
+
+        while((hi-lo) > threeshold) {
+            val size = (hi+lo)/2
+            mTestPaint.textSize = size
+            if(mTestPaint.measureText(textView.text.toString()) > targetWidth)
+                hi = size;
+            else
+                lo = size;
+        }
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, lo)
+
     }
 
     private fun appendCharacter(ch: Char) {
@@ -139,6 +164,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         textview_result.text = result.toPlainString()
+        resizeText(textview_result)
     }
 
     private fun onPositiveNegative() {
@@ -183,7 +209,7 @@ class MainActivity : AppCompatActivity() {
                                 .replace("\u00D7".toRegex(), "*")
                                 .replace("\u00F7".toRegex(), "/")
                 )
-                expression.setPrecision(15)
+                expression.setPrecision(30)
                 val result = expression.eval()
                 return result
             } catch (ex: Exception) {
