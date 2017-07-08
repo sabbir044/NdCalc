@@ -1,19 +1,16 @@
 package com.sabbir.ndcalc
 
-import kotlinx.android.synthetic.main.activity_main.*
-
 import android.graphics.Typeface
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
-
 import com.udojava.evalex.Expression
-
+import kotlinx.android.synthetic.main.activity_main.*
 import java.math.BigDecimal
 
 class MainActivity : AppCompatActivity() {
@@ -24,10 +21,9 @@ class MainActivity : AppCompatActivity() {
         textview_expression.typeface = custom_font
         textview_result.typeface = custom_font
         val gridLayout = findViewById(R.id.grid_container) as GridLayout
-        for (i in 0..gridLayout.childCount - 1) {
-            val button = gridLayout.getChildAt(i) as Button
-            button.setTypeface(custom_font)
-        }
+        (0..gridLayout.childCount - 1)
+                .map { gridLayout.getChildAt(it) as Button }
+                .forEach { it.typeface = custom_font }
 
         textview_expression.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -72,38 +68,56 @@ class MainActivity : AppCompatActivity() {
 
     fun onKeyTap(view: View) {
         when (view.id) {
-            R.id.button_0 -> appendCharacter("0")
-            R.id.button_1 -> appendCharacter("1")
-            R.id.button_2 -> appendCharacter("2")
-            R.id.button_3 -> appendCharacter("3")
-            R.id.button_4 -> appendCharacter("4")
-            R.id.button_5 -> appendCharacter("5")
-            R.id.button_6 -> appendCharacter("6")
-            R.id.button_7 -> appendCharacter("7")
-            R.id.button_8 -> appendCharacter("8")
-            R.id.button_9 -> appendCharacter("9")
-            R.id.button_plus -> appendCharacter(" + ")
-            R.id.button_minus -> appendCharacter(" - ")
-            R.id.button_mult -> appendCharacter(" \u00D7 ")
-            R.id.button_div -> appendCharacter(" \u00F7 ")
-            R.id.button_decimal_point -> appendCharacter(".")
+            R.id.button_0 -> appendCharacter('0')
+            R.id.button_1 -> appendCharacter('1')
+            R.id.button_2 -> appendCharacter('2')
+            R.id.button_3 -> appendCharacter('3')
+            R.id.button_4 -> appendCharacter('4')
+            R.id.button_5 -> appendCharacter('5')
+            R.id.button_6 -> appendCharacter('6')
+            R.id.button_7 -> appendCharacter('7')
+            R.id.button_8 -> appendCharacter('8')
+            R.id.button_9 -> appendCharacter('9')
+            R.id.button_plus -> appendCharacter('+')
+            R.id.button_minus -> appendCharacter('-')
+            R.id.button_mult -> appendCharacter('\u00D7')
+            R.id.button_div -> appendCharacter('\u00F7')
+            R.id.button_decimal_point -> appendCharacter('.')
             R.id.button_equal -> result()
             R.id.button_clear -> {
-                textview_expression.setText("")
+                textview_expression.text = ""
                 textview_result.text = ""
             }
             R.id.button_back_space -> {
                 val str = textview_expression.text.toString()
-                if (str.length > 0) {
-                    textview_expression.text = str.substring(0, str.length - 1)
+                when {
+                    str.length > 1 && (str[str.length - 2] == ' ') ->
+                        textview_expression.text = str.substring(0, str.length - 2)
+                    str.isNotEmpty() ->
+                        textview_expression.text = str.substring(0, str.length - 1)
                 }
             }
             R.id.button_sqrt -> onSquareRoot()
         }
     }
 
-    private fun appendCharacter(ch: String) {
-        textview_expression.append(ch)
+    private fun appendCharacter(ch: Char) {
+        if (textview_expression.length() > 0 && isOperator(ch)) {
+            textview_expression.append(" " + ch)
+        } else {
+            if (textview_expression.text.isNotEmpty() && isOperator(textview_expression.text.last())) {
+                textview_expression.append(" " + ch)
+            } else {
+                textview_expression.append("" + ch)
+            }
+        }
+    }
+
+    private fun isOperator(ch: Char): Boolean {
+        when (ch) {
+            '+', '-', '\u00D7', '\u00F7' -> return true
+            else -> return false
+        }
     }
 
     private fun result() {
@@ -117,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSquareRoot() {
         val result = result
-        if(result == null ) {
+        if (result == null) {
             textview_result.text = "Invalid Expr"
             return
         }
