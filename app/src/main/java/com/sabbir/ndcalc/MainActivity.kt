@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.button_sqrt -> onSquareRoot()
+            R.id.button_negate -> onPositiveNegative()
         }
     }
 
@@ -127,6 +128,22 @@ class MainActivity : AppCompatActivity() {
             return
         }
         textview_result.text = result.toPlainString()
+    }
+
+    private fun onPositiveNegative() {
+        val text = textview_expression.text
+        if (text.isEmpty() || isOperator(text[text.lastIndex])) {
+            return
+        } else {
+            val insertPos = text.lastIndexOf(' ')
+            val prefix = text.substring(0, insertPos + 1)
+            val suffix = text.substring(insertPos + 1)
+            if (suffix.startsWith('-')) {
+                textview_expression.text = prefix + suffix.substring(1)
+            } else {
+                textview_expression.text = prefix + '-' + suffix
+            }
+        }
     }
 
     private fun onSquareRoot() {
