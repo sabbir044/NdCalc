@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayout
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
@@ -64,6 +65,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        textview_expression.filters = arrayOf(InputFilter.LengthFilter(15))
     }
 
     fun onKeyTap(view: View) {
