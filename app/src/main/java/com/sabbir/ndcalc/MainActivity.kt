@@ -9,7 +9,6 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
@@ -161,9 +160,9 @@ class MainActivity : AppCompatActivity() {
         val result = result
         if (result == null) {
             textview_result.text = resources.getText(R.string.bad_expr)
-            return
+        } else {
+            textview_result.text = result.toPlainString()
         }
-        textview_result.text = result.toPlainString()
         resizeText(textview_result)
     }
 
@@ -180,6 +179,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 textview_expression.text = prefix + '-' + suffix
             }
+            resizeText(textview_expression)
         }
     }
 
@@ -196,8 +196,8 @@ class MainActivity : AppCompatActivity() {
             textview_result.text = newResult.toPlainString()
         } catch (ex: Exception) {
             textview_result.text = resources.getText(R.string.bad_expr)
-
         }
+        resizeText(textview_result)
 
     }
 
